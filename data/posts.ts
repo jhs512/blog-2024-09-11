@@ -34,4 +34,17 @@ posts[1].content = `
 # 제목 1
 ## 제목 1
 ### 제목 1
+
+- 안녕
+- 하세요.
+    - 반갑습니다.
+    - 반갑습니다.
+
+\`\`\`c
+#include <stdio.h>
+
+int main() {
+    return 0;
+}
+\`\`\`
 `.trim();
