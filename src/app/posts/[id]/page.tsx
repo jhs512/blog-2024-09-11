@@ -1,7 +1,7 @@
 "use client";
 
+import { LocaleCalendar } from "@/components/customUi/locale-calendar";
 import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
 
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons/faArrowRight";
 import { faArrowsToEye } from "@fortawesome/free-solid-svg-icons/faArrowsToEye";
@@ -25,7 +25,7 @@ export default function PostPage({ params }: { params: { id: string } }) {
       <FontAwesomeIcon icon={faArrowsToEye} />
       <Button variant="outline">Button</Button>
 
-      <Calendar
+      <LocaleCalendar
         mode="single"
         selected={date}
         onSelect={setDate}
