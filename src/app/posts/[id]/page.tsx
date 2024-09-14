@@ -6,9 +6,13 @@ import remark2rehype from "remark-rehype";
 import { unified } from "unified";
 
 import { posts } from "@/../data/posts";
-import PostDetail from "./PostDetail";
+import PostDetailBody from "./PostDetailBody";
 
-export default async function Post({ params }: { params: { id: string } }) {
+export default async function PostDetail({
+  params,
+}: {
+  params: { id: string };
+}) {
   const id = parseInt(params.id);
 
   const post = posts[id];
@@ -20,5 +24,5 @@ export default async function Post({ params }: { params: { id: string } }) {
     .use(html)
     .process(post.content);
 
-  return <PostDetail post={post} html={htmlText.toString()} />;
+  return <PostDetailBody post={post} html={htmlText.toString()} />;
 }
