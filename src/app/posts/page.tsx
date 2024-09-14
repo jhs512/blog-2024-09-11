@@ -1,3 +1,12 @@
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+
 import { posts } from "@/../data/posts";
 import Link from "next/link";
 
@@ -6,17 +15,22 @@ export default async function PostList() {
 
   for (const id in posts) {
     postListItems.push(
-      <li key={id} className="flex">
-        <Link href={`/posts/${id}`}>
-          {posts[id].id} {posts[id].title}
-        </Link>
-      </li>
+      <Link key={id} href={`/posts/${id}`}>
+        <Card>
+          <CardHeader>
+            <CardTitle>
+              {posts[id].id} : {posts[id].title}
+            </CardTitle>
+            <CardDescription>{posts[id].subTitle}</CardDescription>
+          </CardHeader>
+        </Card>
+      </Link>
     );
   }
 
   return (
-    <>
-      <ul>{postListItems}</ul>
-    </>
+    <div className="my-4 px-4 container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      {postListItems}
+    </div>
   );
 }
