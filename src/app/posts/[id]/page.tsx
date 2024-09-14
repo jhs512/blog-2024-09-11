@@ -5,7 +5,7 @@ import markdown from "remark-parse";
 import remark2rehype from "remark-rehype";
 import { unified } from "unified";
 
-import { posts } from "../../../../data/posts";
+import { posts } from "@/../data/posts";
 import PostDetail from "./PostDetail";
 
 export default async function Post({ params }: { params: { id: string } }) {
@@ -20,10 +20,5 @@ export default async function Post({ params }: { params: { id: string } }) {
     .use(html)
     .process(post.content);
 
-  return (
-    <div className="p-4">
-      <h1 className="text-5xl font-bold">{post.title}</h1>
-      <PostDetail html={htmlText.toString()} />
-    </div>
-  );
+  return <PostDetail post={post} html={htmlText.toString()} />;
 }

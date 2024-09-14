@@ -1,4 +1,4 @@
-type Post = { id: number; title: string; content: string };
+import { Post } from "@/types/post";
 
 export const posts: { [key: number]: Post } = {
   3: {
