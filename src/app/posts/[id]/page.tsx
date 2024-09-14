@@ -1,32 +1,29 @@
-"use client";
+import rehypePrettyCode from "rehype-pretty-code";
 
-import { unified } from "unified";
+import html from "rehype-stringify";
 import markdown from "remark-parse";
 import remark2rehype from "remark-rehype";
-import html from "rehype-stringify";
+import { unified } from "unified";
 
-import { useState } from "react";
 import { posts } from "../../../../data/posts";
+import PostDetail from "./PostDetail";
 
-export default function PostPage({ params }: { params: { id: string } }) {
-  const [date, setDate] = useState<Date | undefined>();
+export default async function Post({ params }: { params: { id: string } }) {
   const id = parseInt(params.id);
 
   const post = posts[id];
 
-  const html_text = unified()
+  const htmlText = await unified()
     .use(markdown)
     .use(remark2rehype)
+    .use(rehypePrettyCode, {})
     .use(html)
-    .processSync(post.content);
+    .process(post.content);
 
   return (
     <div className="p-4">
       <h1 className="text-5xl font-bold">{post.title}</h1>
-      <div
-        className="prose max-width max-w-full my-10"
-        dangerouslySetInnerHTML={{ __html: html_text.toString() }}
-      ></div>
+      <PostDetail html={htmlText.toString()} />
     </div>
   );
 }
