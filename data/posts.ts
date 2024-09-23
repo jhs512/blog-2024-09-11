@@ -151,16 +151,15 @@ export const posts: { [key: number]: Post } = Object.fromEntries(
 
     const tags = (" " + tag)
       .split(" #")
-      .map((tag) => tag.trim())
+      .map((tag) => tag.trim().toLocaleUpperCase())
       .filter((tag) => tag !== "");
 
     const tagLinks = tags.map((tag) => {
-      const tagUpperCase = tag.toUpperCase();
-      const tagSlog = tagUpperCase.replace(/ /g, "-");
+      const tagSlog = tag.replace(/ /g, "-");
 
       return {
         link: `/posts/tags/${tagSlog}`,
-        tag: tagUpperCase,
+        tag,
       };
     });
 
@@ -174,3 +173,17 @@ export const posts: { [key: number]: Post } = Object.fromEntries(
     ];
   })
 );
+
+export const postsByTag: { [key: string]: { [key: number]: Post } } =
+  Object.entries(posts).reduce(
+    (acc, [key, post]) => {
+      post.tags.forEach((tag) => {
+        if (!acc[tag]) {
+          acc[tag] = {};
+        }
+        acc[tag][Number(key)] = post;
+      });
+      return acc;
+    },
+    {} as { [key: string]: { [key: number]: Post } }
+  );
