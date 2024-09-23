@@ -1,8 +1,6 @@
 import {
   Card,
-  CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -15,16 +13,27 @@ export default async function PostList() {
 
   for (const id in posts) {
     postListItems.push(
-      <Link key={id} href={`/posts/${id}`}>
-        <Card>
-          <CardHeader>
-            <CardTitle>
-              {posts[id].id} : {posts[id].title}
-            </CardTitle>
-            <CardDescription>{posts[id].subTitle}</CardDescription>
-          </CardHeader>
-        </Card>
-      </Link>
+      <Card className="relative">
+        <Link href={`/posts/${id}`} className="absolute inset-0"></Link>
+        <CardHeader>
+          <CardTitle>
+            {posts[id].id} : {posts[id].title}
+          </CardTitle>
+          <CardDescription>
+            {posts[id].subTitle}
+
+            <br />
+
+            {posts[id].tagLinks.map(({ tag, link }) => (
+              <span key={tag} className="mr-2">
+                <Link className="relative" href={link}>
+                  #{tag}
+                </Link>
+              </span>
+            ))}
+          </CardDescription>
+        </CardHeader>
+      </Card>
     );
   }
 
